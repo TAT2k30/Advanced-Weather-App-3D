@@ -4,6 +4,7 @@ export default {
   theme: {
     extend: {
       colors: {
+        commonBlue: "#007bff",
         commonBlack: "#191B1D",
         bodyBlack: '#232527',
         inputBlack: '#111212',   

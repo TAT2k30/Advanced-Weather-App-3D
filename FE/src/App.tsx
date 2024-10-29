@@ -14,7 +14,7 @@ function App() {
   }, [lightMode]);
 
   const backgroundClass = lightMode ? "bg-white" : "bg-commonBlack";
-  const textClass = lightMode ? "text-black" : "text-white";
+  const textClass = lightMode ? "text-commonBlack" : "text-commonBlue";
   const shadowClass = lightMode ? "shadow-lg shadow-gray-200" : "shadow-lg shadow-gray-800";
 
   return (
