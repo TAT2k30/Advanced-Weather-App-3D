@@ -12,3 +12,46 @@ body.dark {
   background-color: black;
   color: white;
 }
+
+/* Tùy chỉnh toàn bộ scrollbar */
+::-webkit-scrollbar {
+  width: 12px; /* Chiều rộng của scrollbar */
+  background-color: rgba(200, 200, 200, 0.5); /* Màu nền của track với độ mờ */
+}
+
+/* Tùy chỉnh phần "thân" của scrollbar */
+::-webkit-scrollbar-thumb {
+  background-color: rgba(
+    100,
+    100,
+    100,
+    0.8
+  ); /* Màu sắc của thanh cuộn với độ mờ */
+  border-radius: 10px; /* Bo tròn các góc */
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Hiệu ứng chuyển màu và biến đổi mượt mà */
+}
+
+/* Tùy chỉnh phần "track" của scrollbar */
+::-webkit-scrollbar-track {
+  background-color: rgba(230, 230, 230, 0.8); /* Màu nền của track với độ mờ */
+  border-radius: 10px; /* Bo tròn các góc */
+}
+
+/* Thay đổi màu khi hover */
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(60, 60, 60, 0.9); /* Màu sắc khi hover */
+  transform: scale(1.1); /* Tăng kích thước khi hover */
+}
+
+/* Đảm bảo scrollbar hoạt động với mọi phần tử */
+html {
+  scrollbar-width: thin; /* Firefox: sử dụng thanh cuộn mảnh */
+  scrollbar-color: rgba(100, 100, 100, 0.8) rgba(230, 230, 230, 0.8); /* Firefox: màu thanh cuộn và màu nền */
+  scroll-behavior: smooth;
+}
+
+/* Áp dụng cho tất cả các phần tử cuộn */
+* {
+  scrollbar-color: rgba(100, 100, 100, 0.8) rgba(230, 230, 230, 0.8); /* Firefox: màu thanh cuộn và màu nền */
+  scroll-behavior: smooth;
+}
