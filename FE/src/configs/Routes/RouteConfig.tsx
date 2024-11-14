@@ -6,6 +6,7 @@ import NotFoundPage from "../../pages/404Page/NotFoundPage";
 import Login from "../../components/auths/login/Login";
 import Register from "../../components/auths/register/Signup";
 import React from "react";
+import PlayPage from "../../pages/userPages/publicPages/PlayPage";
 
 
 const AppRoutes = () => {
@@ -16,7 +17,7 @@ const AppRoutes = () => {
                 <Route path="/" element={<HomePage />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
-
+                <Route path="/play" element={<PlayPage />} />
                 {/* Private Routes - Các route bắt buộc phải Login hoặc với Role gì đấy mới được vào*/}
                 {/* <Route path="/profile" element={<PrivateRoute component={ProfilePage} />} /> */}
 
