@@ -10,10 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@react-three/drei": "^9.115.0",
+    "@react-three/drei": "^9.117.2",
     "@react-three/fiber": "^8.17.10",
     "@types/three": "^0.170.0",
     "axios": "^1.7.7",
+    "d3": "^7.9.0",
     "gasp": "^0.0.2",
     "gsap": "^3.12.5",
     "react": "^18.3.1",
@@ -23,6 +24,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.11.1",
+    "@types/d3": "^7.4.3",
     "@types/gsap": "^3.0.0",
     "@types/react": "^18.3.10",
     "@types/react-dom": "^18.3.0",

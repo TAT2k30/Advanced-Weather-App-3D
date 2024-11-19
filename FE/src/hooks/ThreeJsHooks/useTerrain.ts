@@ -3,16 +3,9 @@ import * as THREE from "three";
 import ThreeCore from "../../classes/3d/ThreeCore";
 
 export const useTerrain = () => {
-  const containerRef = useRef<HTMLDivElement | null>(null);  // ref cho div container
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    // Tạo mặt phẳng terrain rộng hơn
-    const points = [];
-    points.push(new THREE.Vector3(-100, 0, 0));
-    points.push(new THREE.Vector3(0, 100, 0));
-    points.push(new THREE.Vector3(100, 0, 0));
-    points.push(new THREE.Vector3(100, 0, 0));
-
     // Tạo geometry cho terrain
     const geometry = new THREE.PlaneGeometry(1000, 1000, 50, 50);
     const material = new THREE.MeshStandardMaterial({
@@ -27,54 +20,72 @@ export const useTerrain = () => {
     ThreeCore.scene.add(terrain);
 
     // Thêm ánh sáng
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1.5);
     ThreeCore.scene.add(ambientLight);
 
     const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
     directionalLight.position.set(100, 200, 100).normalize();
     ThreeCore.scene.add(directionalLight);
 
-    // Tạo một đường line (sử dụng các điểm)
-    const lineGeometry = new THREE.BufferGeometry().setFromPoints(points);
+    // Thêm đường chéo
     const lineMaterial = new THREE.LineBasicMaterial({ color: 0xff0000 });
-    const line = new THREE.Line(lineGeometry, lineMaterial);
+    const createDiagonalLine = (points: THREE.Vector3[]) => {
+      const lineGeometry = new THREE.BufferGeometry().setFromPoints(points);
+      return new THREE.Line(lineGeometry, lineMaterial);
+    };
 
-    // Thêm line vào scene
-    ThreeCore.scene.add(line);
+    const diagonalLine1 = createDiagonalLine([
+      new THREE.Vector3(-500, 0.1, -500),
+      new THREE.Vector3(500, 0.1, 500),
+    ]);
 
-    // Đặt vị trí của camera để nhìn thấy mặt phẳng rộng hơn
+    const diagonalLine2 = createDiagonalLine([
+      new THREE.Vector3(-500, 0.1, 500),
+      new THREE.Vector3(500, 0.1, -500),
+    ]);
+
+    ThreeCore.scene.add(diagonalLine1, diagonalLine2);
+
+    // Thiết lập camera và controls
     ThreeCore.camera.position.set(0, 150, 200);
     ThreeCore.camera.lookAt(0, 0, 0);
+    ThreeCore.initCameraControls();
+    ThreeCore.setPosition();
 
-    // Gắn renderer vào container
+    // Gắn renderer vào container nếu tồn tại
     if (containerRef.current) {
       containerRef.current.appendChild(ThreeCore.renderer.domElement);
     }
 
-    // Hàm render - Tối ưu hóa để giảm giật lag
-    let needRender = true;
-    const animate = () => {
-      if (needRender) {
-        requestAnimationFrame(animate);
-        ThreeCore.render();
-        needRender = false;
-      }
-    };
+    // Lắng nghe sự kiện controls thay đổi để render lại
+    const handleControlChange = () => ThreeCore.render();
+    ThreeCore.controls.addEventListener('change', handleControlChange);
 
-    // Lắng nghe sự kiện resize và mousemove để tối ưu lại rendering
-    window.addEventListener("resize", () => (needRender = true));
-    window.addEventListener("mousemove", () => (needRender = true));
+    // Xử lý sự kiện resize
+    const handleResize = () => ThreeCore.onWindowResize();
+    window.addEventListener("resize", handleResize);
 
-    animate();
+    // Lắng nghe sự kiện mousemove
+    window.addEventListener("mousemove", ThreeCore.handleMouseMove);
 
     // Cleanup khi component unmount
     return () => {
-      ThreeCore.scene.remove(terrain, ambientLight, directionalLight, line);
+      ThreeCore.scene.remove(
+        terrain,
+        ambientLight,
+        directionalLight,
+        diagonalLine1,
+        diagonalLine2
+      );
       geometry.dispose();
       material.dispose();
-      ThreeCore.renderer.dispose();
+      lineMaterial.dispose();
+
+      ThreeCore.controls.removeEventListener('change', handleControlChange);
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("mousemove", ThreeCore.handleMouseMove);
     };
   }, []);
 
-  return containerRef;  // Trả về ref để sử dụng trong component
+  return containerRef;
 };
