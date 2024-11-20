@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { WeatherProps } from '../../../rules/props/WeatherProps';
+import { WeatherProps } from '../../../rules/props/pages/WeatherProps';
 import TerrainSence from '../../../components/threeScences/TerrainScence';
 import WorldMapCanvas from '../../../components/threeScences/EarthScences/WorldMap';
 

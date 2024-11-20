@@ -1,5 +1,5 @@
 import React from 'react';
-import { SideNavProps } from '../../../rules/props/SideNavProps';
+import { SideNavProps } from '../../../rules/props/pages/SideNavProps';
 import { Link } from 'react-router-dom';
 
 function SideNav({ handleCloseSideNav, isSideNavOpen }: SideNavProps) {

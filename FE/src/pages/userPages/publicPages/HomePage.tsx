@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { Canvas } from '@react-three/fiber';
 import * as THREE from 'three';
-import { HomePageProps } from '../../../rules/props/HomePageProps';
+import { HomePageProps } from '../../../rules/props/pages/HomePageProps';
 
 
 const HomePage = ({ currentBodyLightMode, currentShadowLightMode, currentTextLightMode }: HomePageProps) => {

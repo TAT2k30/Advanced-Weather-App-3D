@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import * as THREE from 'three';
-import * as d3 from 'd3';
+import * as THREE from "three";
+import * as d3 from "d3";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 
@@ -9,18 +9,22 @@ const WorldMap: React.FC = () => {
 
     useEffect(() => {
         const loadMap = async () => {
-            const geoData: any = await d3.json('/assets/GeoJson/world/countries.geo.json'); // Đảm bảo đường dẫn chính xác
+            const geoData: any = await d3.json("src/assets/GeoJson/world/countries.geo.json");
 
             if (!geoData || !mapGroupRef.current) return;
 
             const mapGroup = mapGroupRef.current;
-
-            const projection = d3.geoMercator().scale(80).translate([0, 0]);
+            const projection = d3.geoMercator().scale(300).translate([0, 0]);
 
             geoData.features.forEach((feature: any) => {
                 const shape = new THREE.Shape();
 
-                feature.geometry.coordinates[0].forEach(([lon, lat]: [number, number], index: number) => {
+                // Kiểm tra kiểu dữ liệu geometry (Polygon hay MultiPolygon)
+                const coordinates = feature.geometry.type === "MultiPolygon"
+                    ? feature.geometry.coordinates[0] // Chọn vùng đầu tiên trong MultiPolygon
+                    : feature.geometry.coordinates;
+
+                coordinates[0].forEach(([lon, lat]: [number, number], index: number) => {
                     const [x, y] = projection([lon, lat]) || [0, 0];
                     if (index === 0) {
                         shape.moveTo(x, y);
@@ -44,10 +48,10 @@ const WorldMap: React.FC = () => {
 };
 
 const WorldMapCanvas: React.FC = () => {
-    const [isLoading, setIsloading] = useState<boolean>(true);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
 
     const handleLoadMap = () => {
-        setIsloading(false);
+        setIsLoading(false);
     };
 
     return (
@@ -70,4 +74,8 @@ const WorldMapCanvas: React.FC = () => {
                 {/* Controls */}
                 <OrbitControls />
             </Canvas>
-        
+        </>
+    );
+};
+
+export default WorldMapCanvas;

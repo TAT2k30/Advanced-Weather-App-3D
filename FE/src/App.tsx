@@ -22,7 +22,7 @@ const App: React.FC = () => {
   return (
     <div className={`flex flex-col min-h-screen ${backgroundClass} ${textClass} transition-all duration-500`}>
       {/* Header */}
-      {location.pathname !== "/weather" && (
+      {!(location.pathname === "/weather" || location.pathname === "/testing") && (
         <Header
           isLigtMode={lightMode}
           setIsLightMode={setLightMode}
@@ -41,7 +41,7 @@ const App: React.FC = () => {
       </main>
 
       {/* Footer */}
-      {location.pathname !== "/weather" && (
+      {!(location.pathname === "/weather" || location.pathname === "/testing") && (
         <Footer
           currentBodyLightMode={backgroundClass}
           currentTextLightMode={textClass}

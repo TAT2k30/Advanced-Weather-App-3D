@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { HeaderProps } from "../../../rules/props/HeaderProps";
+import { HeaderProps } from "../../../rules/props/pages/HeaderProps";
 import { useEffect, useState } from "react";
 import SideNav from "./SideNav";
 
@@ -50,6 +50,11 @@ function Header({ isLigtMode, setIsLightMode, currentBodyLightMode, currentTextL
             <li className='max-lg:border-b max-lg:py-3 px-3 w-full'>
               <Link to={"/weather"} className={`${currentTextLightMode} ${isLigtMode ? "hover:text-commonHoverBlack hover:text-xl" : "hover:text-commonHoverBlue hover:text-xl"} block font-semibold text-[15px] w-full text-center py-3 bg-transparent transition-all`}>
                 Weather
+              </Link>
+            </li>
+            <li className='max-lg:border-b max-lg:py-3 px-3 w-full'>
+              <Link to={"/testing"} className={`${currentTextLightMode} ${isLigtMode ? "hover:text-commonHoverBlack hover:text-xl" : "hover:text-commonHoverBlue hover:text-xl"} block font-semibold text-[15px] w-full text-center py-3 bg-transparent transition-all`}>
+                Testing
               </Link>
             </li>
             <li className='max-lg:border-b max-lg:py-2 px-0 w-full flex items-center gap-2'>

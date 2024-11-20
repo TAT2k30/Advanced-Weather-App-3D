@@ -1,4 +1,4 @@
-import { FooterProps } from "../../../rules/props/FooterProps";
+import { FooterProps } from "../../../rules/props/pages/FooterProps";
 
 function Footer({ currentBodyLightMode, currentTextLightMode, currentShadowLightMode }: FooterProps) {
   return (
