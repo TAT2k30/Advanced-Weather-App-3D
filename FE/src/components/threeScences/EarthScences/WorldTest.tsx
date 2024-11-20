@@ -1,90 +1,13 @@
-import { Canvas } from "@react-three/fiber";
 import { CountryProps } from "../../../rules/props/objects/CountryProps";
 import { TestingPageProps } from "../../../rules/props/pages/TestingPageProps";
-import { OrbitControls } from "@react-three/drei";
-import * as d3 from 'd3';
-import * as THREE from 'three';
-import { useEffect, useRef } from "react";
 
-const RenderCountry: React.FC<CountryProps> = ({ geometry, properties }) => {
-    const containerRef = useRef<HTMLDivElement | null>(null);
+const RenderCountry: React.FC = () => {
 
-    useEffect(() => {
-        if (!containerRef.current || !geometry) return;
-
-        // Tạo scene Three.js, camera, renderer
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        containerRef.current.appendChild(renderer.domElement);
-
-        // Chuyển đổi tọa độ (longitude, latitude) thành (x, y) sử dụng d3.geoMercator
-        const projection = d3.geoMercator().scale(100).translate([window.innerWidth / 2, window.innerHeight / 2]);
-
-        // Dữ liệu polygon sẽ được chuyển thành Shape
-        const shape = new THREE.Shape();
-        if (geometry.type === "Polygon" && Array.isArray(geometry.coordinates) && Array.isArray(geometry.coordinates[0])) {
-            // Xử lý với Polygon (mảng đơn)
-            geometry.coordinates.forEach(([lon, lat]: [number, number], index: number) => {
-                const [x, y] = projection([lon, lat]) || [0, 0];
-                if (index === 0) {
-                    shape.moveTo(x, y);
-                } else {
-                    shape.lineTo(x, y);
-                }
-            });
-        } else if (geometry.type === "MultiPolygon" && Array.isArray(geometry.coordinates)) {
-            // Xử lý với MultiPolygon (mảng các mảng tọa độ)
-            geometry.coordinates.forEach(polygon => {
-                if (Array.isArray(polygon)) {
-                    polygon.forEach(([lon, lat]: [number, number], index: number) => {
-                        const [x, y] = projection([lon, lat]) || [0, 0];
-                        if (index === 0) {
-                            shape.moveTo(x, y);
-                        } else {
-                            shape.lineTo(x, y);
-                        }
-                    });
-                }
-            });
-        } else {
-            console.error("Unknown geometry type or malformed coordinates.");
-        }
-
-
-
-        // Tạo geometry từ Shape
-        const geometry3D = new THREE.ShapeGeometry(shape);
-        const material = new THREE.MeshBasicMaterial({ color: 0x00ff00, side: THREE.DoubleSide });
-        const mesh = new THREE.Mesh(geometry3D, material);
-
-        // Thêm mesh vào scene
-        scene.add(mesh);
-
-        // Đặt camera
-        camera.position.z = 500;
-
-        // Vẽ cảnh và camera
-        const animate = () => {
-            requestAnimationFrame(animate);
-            renderer.render(scene, camera);
-        };
-        animate();
-
-        return () => {
-            // Cleanup
-            renderer.dispose();
-        };
-    }, [geometry]);
-
-    return (
-        <div>
-            <h2>{properties.name}</h2>
-            <div ref={containerRef}></div>
-        </div>
-    );
-};
+    const data = { "type": "Feature", "id": "BHS", "properties": { "name": "The Bahamas" }, "geometry": { "type": "MultiPolygon", "coordinates": [[[[-77.53466, 23.75975], [-77.78, 23.71], [-78.03405, 24.28615], [-78.40848, 24.57564], [-78.19087, 25.2103], [-77.89, 25.17], [-77.54, 24.34], [-77.53466, 23.75975]]], [[[-77.82, 26.58], [-78.91, 26.42], [-78.98, 26.79], [-78.51, 26.87], [-77.85, 26.84], [-77.82, 26.58]]], [[[-77, 26.59], [-77.17255, 25.87918], [-77.35641, 26.00735], [-77.34, 26.53], [-77.78802, 26.92516], [-77.79, 27.04], [-77, 26.59]]]] } }
+    return <>
+        Hello
+    </>
+}
 
 
 function WorldTest({
@@ -116,18 +39,11 @@ function WorldTest({
             {/* Nội dung chính */}
             <div className="absolute inset-0 flex items-center justify-center p-4">
                 <div className="bg-white text-black p-6 rounded-lg shadow-xl w-[90%] max-w-lg">
+                    <h1 className="text-xl font-semibold text-center mb-4">
+                        {currentCountry?.properties.name || "Country Data"}
+                    </h1>
                     <p className="text-sm text-gray-600 text-center mb-6">
-                        <Canvas camera={{ position: [0, 0, 400], fov: 30 }}>
-                            {/* Lights */}
-                            <ambientLight intensity={0.5} />
-                            <directionalLight position={[10, 10, 10]} />
-
-                            {/* World Map */}
-                            <RenderCountry {...currentCountry} />
-
-                            {/* Controls */}
-                            <OrbitControls />
-                        </Canvas>
+                        <RenderCountry />
                     </p>
 
                     {/* Nút chức năng */}
