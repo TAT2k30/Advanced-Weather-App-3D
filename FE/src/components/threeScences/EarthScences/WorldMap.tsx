@@ -9,7 +9,7 @@ const WorldMap: React.FC = () => {
 
     useEffect(() => {
         const loadMap = async () => {
-            const geoData: any = await d3.json("src/assets/GeoJson/world/countries.geo.json");
+            const geoData: any = await d3.json("src/assets/GeoJson/world/world.geo.json");
 
             if (!geoData || !mapGroupRef.current) return;
 
