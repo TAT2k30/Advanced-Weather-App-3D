@@ -25,7 +25,7 @@ const WorldMap: React.FC = () => {
                     : feature.geometry.coordinates;
 
                 coordinates[0].forEach(([lon, lat]: [number, number], index: number) => {
-                    const [x, y] = projection([lon, lat]) || [0, 0];
+                    const [x, y] = projection([lon, -lat]) || [0, 0];
                     if (index === 0) {
                         shape.moveTo(x, y);
                     } else {
