@@ -1,5 +1,6 @@
 import React from 'react';
 import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet';
+import { GeoJsonObject } from 'geojson';
 import worldGeoJson from '../../assets/GeoJson/world/world.geo.json';
 
 interface MapComponentProps {
@@ -26,7 +27,7 @@ const MapComponent: React.FC<MapComponentProps> = ({ mapRef }) => {
                     attribution="&copy; OpenStreetMap contributors"
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 /> */}
-                <GeoJSON data={worldGeoJson} onEachFeature={onEachFeature} />
+                <GeoJSON data={worldGeoJson as GeoJsonObject} onEachFeature={onEachFeature} />
             </MapContainer>
         </div>
     );
