@@ -17,8 +17,10 @@
     "d3": "^7.9.0",
     "gasp": "^0.0.2",
     "gsap": "^3.12.5",
+    "leaflet": "^1.9.4",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-leaflet": "^4.2.1",
     "react-router-dom": "^6.27.0",
     "three": "^0.169.0"
   },
@@ -26,6 +28,7 @@
     "@eslint/js": "^9.11.1",
     "@types/d3": "^7.4.3",
     "@types/gsap": "^3.0.0",
+    "@types/leaflet": "^1.9.14",
     "@types/react": "^18.3.10",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.2",
