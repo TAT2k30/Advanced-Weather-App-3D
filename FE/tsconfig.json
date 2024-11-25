@@ -3,5 +3,16 @@
   "references": [
     { "path": "./tsconfig.app.json" },
     { "path": "./tsconfig.node.json" }
-  ]
+  ],
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "target": "ESNext", // Hỗ trợ cú pháp JavaScript mới nhất
+    "strict": true, // Bật các kiểm tra chặt chẽ của TypeScript
+    "esModuleInterop": true, // Hỗ trợ import/export chuẩn của ES Module
+    "skipLibCheck": true, // Bỏ qua kiểm tra kiểu cho các tệp thư viện để tăng tốc
+    "baseUrl": ".", // Cấu hình đường dẫn cơ sở
+    "paths": {
+      "@/*": ["src/*"] // Đường dẫn alias cho dễ quản lý
+    }
+  }
 }
