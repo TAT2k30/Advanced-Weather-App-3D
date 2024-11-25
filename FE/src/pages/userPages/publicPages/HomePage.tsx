@@ -6,11 +6,16 @@ import 'leaflet/dist/leaflet.css'; // Đảm bảo rằng bạn đã import CSS 
 import MapComponent from '../../../components/worlds/Map.Component';
 import { useMap } from '../../../hooks/LeafletHooks/useMap';
 import { TestMap } from '../../../components/worlds/TestMap';
+import UpperLayerPage from './UpperLayerPage';
 
 const HomePage: React.FC = () => {
     const { mapRef } = useMap();
     return (
-        <TestMap />
+        <>
+
+            <UpperLayerPage />
+            <TestMap />
+        </>
     );
 };
 
