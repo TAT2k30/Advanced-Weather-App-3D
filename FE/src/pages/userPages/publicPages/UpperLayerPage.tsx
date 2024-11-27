@@ -1,8 +1,9 @@
+import { Link } from "react-router-dom";
 import Logo from "../../../assets/logos/Software-logo-removebg-preview.png";
 
 function UpperLayerPage() {
     return (
-        <div className="absolute top-4 left-4 right-4 flex justify-between items-center">
+        <div className=" top-4 left-4 right-4 flex justify-between items-center">
             {/* Phần Logo */}
             <div className="flex bg-white rounded-full pt-2 pb-2 pl-5">
                 <div className="flex items-center space-x-4">
@@ -78,15 +79,17 @@ function UpperLayerPage() {
                     </svg>
                 </button>
 
-                {/* Nút liên hệ */}
-                <button className="bg-blue-600 text-white py-2 px-6 rounded-full font-medium hover:bg-blue-700 transition shadow-md">
-                    Contact Us
-                </button>
+                <div className="flex items-center gap-2 bg-blue-600 text-white py-3 px-6 rounded-full font-medium focus:outline-none focus:ring-2 transition-transform transform shadow-lg">
+                    <Link to={""}>Premium</Link>
+                </div>
 
                 {/* Nút đăng nhập */}
-                <button className="bg-blue-600 text-white py-2 px-6 rounded-full font-medium hover:bg-blue-700 transition shadow-md">
-                    Login
-                </button>
+                <Link to={"/login"} className="bg-blue-600 text-white p-3 rounded-full hover:bg-blue-700 transition shadow-md">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
+                        <path fill-rule="evenodd" d="M16.5 3.75a1.5 1.5 0 0 1 1.5 1.5v13.5a1.5 1.5 0 0 1-1.5 1.5h-6a1.5 1.5 0 0 1-1.5-1.5V15a.75.75 0 0 0-1.5 0v3.75a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3V5.25a3 3 0 0 0-3-3h-6a3 3 0 0 0-3 3V9A.75.75 0 1 0 9 9V5.25a1.5 1.5 0 0 1 1.5-1.5h6Zm-5.03 4.72a.75.75 0 0 0 0 1.06l1.72 1.72H2.25a.75.75 0 0 0 0 1.5h10.94l-1.72 1.72a.75.75 0 1 0 1.06 1.06l3-3a.75.75 0 0 0 0-1.06l-3-3a.75.75 0 0 0-1.06 0Z" clip-rule="evenodd" />
+                    </svg>
+
+                </Link>
             </div>
 
         </div>

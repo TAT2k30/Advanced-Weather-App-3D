@@ -2,17 +2,18 @@ import * as d3 from 'd3';
 import { useEffect, useRef } from "react";
 import worldGeoJson from '../../assets/GeoJson/world/world.geo.json';
 import { FeatureCollection } from "geojson";
+import { splitGeoJsonByChunks } from '../../utils/d3.utils';
 
-export const TestMap: React.FC = () => {
+export const LazyChunkMap: React.FC = () => {
     const svgRef = useRef<SVGSVGElement | null>(null);
+
 
     useEffect(() => {
         if (!svgRef.current) return;
 
         // 1. Thiết lập kích thước SVG
-        const width = 800;
-        const height = 500;
-
+        const width = window.innerWidth;
+        const height = window.innerHeight;
         const svg = d3
             .select(svgRef.current)
             .attr("width", "100vw")
