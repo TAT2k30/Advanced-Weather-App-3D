@@ -12,51 +12,54 @@ export function splitGeoJsonByChunks(
   chunkSize: number
 ): FeatureCollection[] {
   const chunks: FeatureCollection[] = [];
-
+  let chunkMinLat: any;
+  let chunkMaxLat: any;
+  let chunkMinLng: any;
+  let chunkMaxLng: any;
   // Tạo lưới chunks dựa trên vĩ độ và kinh độ
   const latSteps = Array.from(
     { length: Math.ceil(180 / chunkSize) },
     (_, i) => -90 + i * chunkSize
   );
+
   const lngSteps = Array.from(
     { length: Math.ceil(360 / chunkSize) },
     (_, i) => -180 + i * chunkSize
   );
 
-  // Duyệt qua các chunk
+  // Duyệt qua các chunks
   for (let i = 0; i < latSteps.length - 1; i++) {
     for (let j = 0; j < lngSteps.length - 1; j++) {
-      const chunkMinLat = latSteps[i];
-      const chunkMaxLat = latSteps[i + 1];
-      const chunkMinLng = lngSteps[j];
-      const chunkMaxLng = lngSteps[j + 1];
+      chunkMinLat = latSteps[i];
+      chunkMaxLat = latSteps[i + 1];
+      chunkMinLng = lngSteps[j];
+      chunkMaxLng = lngSteps[j + 1];
+    }
 
-      // Tạo một chunk GeoJSON
-      const chunk: FeatureCollection = {
-        type: "FeatureCollection",
-        features: [],
-      };
+    // Tạo một chunk GeoJson
+    const chunk: FeatureCollection = {
+      type: "FeatureCollection",
+      features: [],
+    };
 
-      // Lọc các feature thuộc chunk này
-      geoJson.features.forEach((feature) => {
-        if (feature.geometry) {
-          const [[minLng, minLat], [maxLng, maxLat]] = d3.geoBounds(feature);
+    // Lọc các feature thuộc chunk này
+    geoJson.features.forEach((feature) => {
+      if (feature.geometry) {
+        const [[minLng, minLat], [maxLng, maxLat]] = d3.geoBounds(feature);
 
-          // Kiểm tra nếu feature nằm trong chunk
-          if (
-            !(maxLat < chunkMinLat || minLat > chunkMaxLat) && // Kiểm tra vĩ độ
-            !(maxLng < chunkMinLng || minLng > chunkMaxLng) // Kiểm tra kinh độ
-          ) {
-            chunk.features.push(feature);
-          }
+        // Kiểm tra nếu feature nằm trong chunk
+        if (
+          !(maxLat < chunkMinLat || minLat > chunkMaxLat) && // Kiểm tra vĩ độ
+          !(maxLng < chunkMinLng || minLng > chunkMaxLng) // Kiểm tra kinh độ
+        ) {
+          chunk.features.push(feature);
         }
-      });
-
-      if (chunk.features.length > 0) {
-        chunks.push(chunk);
       }
+    });
+
+    if (chunk.features.length > 0) {
+      chunks.push(chunk);
     }
   }
-
-  return chunks;
+  return chunks!;
 }
