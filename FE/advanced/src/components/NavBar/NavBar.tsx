@@ -14,7 +14,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
-import { Search, SearchIconWrapper, StyledInputBase } from './styled.tsx'; // Import styled components
+import { Search, SearchIconWrapper, StyledInputBase } from './styled.tsx';
 
 export function NavBar() {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
